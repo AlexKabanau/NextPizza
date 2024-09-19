@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { Container } from './index';
 import Image from 'next/image';
 import { Button } from '../ui/index';
-import { ArrowBigRight, ArrowRight, ShoppingBasket, UserRound } from 'lucide-react';
+import { ArrowBigRight, ShoppingBasket, UserRound } from 'lucide-react';
 
 type Props = {
   className?: string;
