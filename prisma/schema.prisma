@@ -12,11 +12,21 @@ model User {
   id Int @id @default(autoincrement())
 
   fullName String
-  email    String
+  email    String @unique
   password String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Cart Cart[]
+
+  Order Order[]
+}
+
+model Category {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  product Product[]
 }
 
 model Product {
@@ -25,6 +35,95 @@ model Product {
   name     String
   imageUrl String
 
+  ingredients Ingredient[]
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  items ProductItem[]
+}
+
+model ProductItem {
+  id Int @id @default(autoincrement())
+
+  price     Int
+  size      Int?
+  pizzaType Int?
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  CartItems CartItem[]
+}
+
+model Ingredient {
+  id Int @id @default(autoincrement())
+
+  name     String
+  price    Int
+  imageUrl String
+
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  CartItems CartItem[]
+}
+
+model Cart {
+  id Int @id @default(autoincrement())
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+
+  token String
+
+  totalAmount Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items CartItem[]
+}
+
+model CartItem {
+  id Int @id @default(autoincrement())
+
+  productItem   ProductItem @relation(fields: [productItemId], references: [id])
+  productItemId Int
+
+  cart   Cart @relation(fields: [cartId], references: [id])
+  cartId Int
+
+  quantity Int
+
+  ingredients Ingredient[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int
+
+  token String
+
+  totalAmount Int
+  status      OrderStatus
+  paymentId   String?
+
+  items Json
+}
+
+enum OrderStatus {
+  PENDING
+  SUCCEEDED
+  CANCELED
 }
