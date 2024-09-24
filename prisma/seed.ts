@@ -1,11 +1,27 @@
 import { hashSync } from 'bcrypt';
 import { prisma } from './PrismaClient';
 import { categories, ingredients, products } from './constants';
+import { Prisma } from '@prisma/client';
 
 const randomNumber = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min) * 10 + min * 10) / 10;
 };
-
+const generateProductItem = ({
+  productId,
+  pizzaType,
+  size,
+}: {
+  productId: number;
+  pizzaType?: 1 | 2;
+  size?: 20 | 30 | 40;
+}) => {
+  return {
+    productId,
+    price: randomNumber(19, 60),
+    pizzaType,
+    size,
+  } as Prisma.ProductItemUncheckedCreateInput;
+};
 async function up() {
   await prisma.user.createMany({
     data: [
@@ -74,30 +90,77 @@ async function up() {
 
   await prisma.productItem.createMany({
     data: [
+      // Пицца "Пепперони фреш"
+      generateProductItem({ productId: pizza1.id, pizzaType: 1, size: 20 }),
+      generateProductItem({ productId: pizza1.id, pizzaType: 2, size: 30 }),
+      generateProductItem({ productId: pizza1.id, pizzaType: 2, size: 40 }),
+
+      // Пицца "Сырная"
+      generateProductItem({ productId: pizza2.id, pizzaType: 1, size: 20 }),
+      generateProductItem({ productId: pizza2.id, pizzaType: 1, size: 30 }),
+      generateProductItem({ productId: pizza2.id, pizzaType: 1, size: 40 }),
+      generateProductItem({ productId: pizza2.id, pizzaType: 2, size: 20 }),
+      generateProductItem({ productId: pizza2.id, pizzaType: 2, size: 30 }),
+      generateProductItem({ productId: pizza2.id, pizzaType: 2, size: 40 }),
+
+      // Пицца "Чоризо фреш"
+      generateProductItem({ productId: pizza3.id, pizzaType: 1, size: 20 }),
+      generateProductItem({ productId: pizza3.id, pizzaType: 2, size: 30 }),
+      generateProductItem({ productId: pizza3.id, pizzaType: 2, size: 40 }),
+
+      // Остальные продукты
+      generateProductItem({ productId: 1 }),
+      generateProductItem({ productId: 2 }),
+      generateProductItem({ productId: 3 }),
+      generateProductItem({ productId: 4 }),
+      generateProductItem({ productId: 5 }),
+      generateProductItem({ productId: 6 }),
+      generateProductItem({ productId: 7 }),
+      generateProductItem({ productId: 8 }),
+      generateProductItem({ productId: 9 }),
+      generateProductItem({ productId: 10 }),
+      generateProductItem({ productId: 11 }),
+      generateProductItem({ productId: 12 }),
+      generateProductItem({ productId: 13 }),
+      generateProductItem({ productId: 14 }),
+      generateProductItem({ productId: 15 }),
+      generateProductItem({ productId: 16 }),
+      generateProductItem({ productId: 17 }),
+    ],
+  });
+
+  await prisma.cart.createMany({
+    data: [
       {
-        productId: pizza1.id,
-        pizzaType: 1,
-        price: randomNumber(19, 60),
-        size: 20,
+        userId: 1,
+        totalAmount: 0,
+        token: '123456',
       },
       {
-        productId: pizza1.id,
-        pizzaType: 2,
-        price: randomNumber(19, 60),
-        size: 30,
-      },
-      {
-        productId: pizza1.id,
-        pizzaType: 2,
-        price: randomNumber(19, 60),
-        size: 40,
+        userId: 2,
+        totalAmount: 0,
+        token: '123321',
       },
     ],
+  });
+  await prisma.cartItem.create({
+    data: {
+      productItemId: 1,
+      cartId: 1,
+      quantity: 2,
+      ingredients: {
+        connect: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      },
+    },
   });
 }
 
 async function down() {
   await prisma.$executeRaw`TRUNCATE TABLE "User" RESTART IDENTITY CASCADE`;
+  await prisma.$executeRaw`TRUNCATE TABLE "Category" RESTART IDENTITY CASCADE`;
+  await prisma.$executeRaw`TRUNCATE TABLE "Product" RESTART IDENTITY CASCADE`;
+  await prisma.$executeRaw`TRUNCATE TABLE "ProductItem" RESTART IDENTITY CASCADE`;
+  await prisma.$executeRaw`TRUNCATE TABLE "Ingredient" RESTART IDENTITY CASCADE`;
 }
 
 async function main() {
@@ -111,10 +174,10 @@ async function main() {
 
 main()
   .then(async () => {
-    await prisma.$disconect();
+    await prisma.$disconnect();
   })
   .catch(async (e) => {
     console.error(e);
-    await prisma.$disconect();
+    await prisma.$disconnect();
     process.exit(1);
   });

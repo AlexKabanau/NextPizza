@@ -1,3 +1,7 @@
+// import cheeseBort from '../public/images/pizzasImages/99f5cb91225b4875bd06a26d2e842106.png';
+
+// const cheeseBort: import('../public/images/pizzasImages/99f5cb91225b4875bd06a26d2e842106.png').StaticImageData;
+
 export const categories = [
   {
     name: 'Пиццы',
@@ -20,30 +24,28 @@ export const ingredients = [
   {
     name: 'Сырный бортик',
     price: 179,
-    imageUrl:
-      'https://cdn.dodostatic.net/static/Img/Ingredients/99f5cb91225b4875bd06a26d2e842106.png',
+    // imageUrl: '../public/images/pizzasImages/99f5cb91225b4875bd06a26d2e842106.png',
+    imageUrl: '../public/images/pizzasIngredientsImages/99f5cb91225b4875bd06a26d2e842106.png',
   },
   {
     name: 'Сливочная моцарелла',
     price: 79,
-    imageUrl:
-      'https://cdn.dodostatic.net/static/Img/Ingredients/cdea869ef287426386ed634e6099a5ba.png',
+    imageUrl: '../public/images/pizzasIngredientsImages/cdea869ef287426386ed634e6099a5ba.png',
   },
   {
     name: 'Сыры чеддер и пармезан',
     price: 79,
-    imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA69C1FE796',
+    imageUrl: '../public/images/pizzasIngredientsImages/000D3A22FA54A81411E9AFA69C1FE796.png',
   },
   {
     name: 'Острый перец халапеньо',
     price: 59,
-    imageUrl:
-      'https://cdn.dodostatic.net/static/Img/Ingredients/11ee95b6bfdf98fb88a113db92d7b3df.png',
+    imageUrl: '../public/images/pizzasIngredientsImages/11ee95b6bfdf98fb88a113db92d7b3df.png',
   },
   {
     name: 'Нежный цыпленок',
     price: 79,
-    imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/000D3A39D824A82E11E9AFA5B328D35A',
+    imageUrl: '../public/images/pizzasIngredientsImages/000D3A39D824A82E11E9AFA5B328D35A.png',
   },
   {
     name: 'Шампиньоны',
