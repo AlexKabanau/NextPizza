@@ -3,7 +3,7 @@
 import React, { FC, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { FilterCheckbox, FilterCheckboxProps } from './FilterCheckbox';
-import { Button, Input, Skeleton } from '../ui';
+import { Input, Skeleton } from '../ui';
 
 type Props = {
   title: string;
@@ -11,10 +11,12 @@ type Props = {
   defaultItems: Item[];
   limit?: number;
   serchInputPlaceholder?: string;
-  onChange?: (value: string[]) => void;
+  onClickCheckbox?: (value: string) => void;
   dafaultValue?: string[];
+  selectedIds?: Set<string>;
   className?: string;
-  loading: boolean;
+  loading?: boolean;
+  name?: string;
 };
 type Item = FilterCheckboxProps;
 
@@ -25,9 +27,11 @@ export const CheckboxFiltersGroup: FC<Props> = ({
   limit = 5,
   serchInputPlaceholder = 'Поиск...',
   className,
-  onChange,
+  onClickCheckbox,
   dafaultValue,
   loading,
+  selectedIds,
+  name,
 }) => {
   const [showAll, setShowAll] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -74,8 +78,9 @@ export const CheckboxFiltersGroup: FC<Props> = ({
             text={item.text}
             value={item.value}
             endAbornment={item.endAbornment}
-            checked={false}
-            onCheckedChange={(ids) => console.log(ids)}
+            checked={selectedIds?.has(item.value)}
+            onCheckedChange={() => onClickCheckbox?.(item.value)}
+            name={name}
           />
         ))}
       </div>

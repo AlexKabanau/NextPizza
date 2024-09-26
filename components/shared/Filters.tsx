@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const Filters: FC<Props> = ({ className }) => {
-  const { ingredients, loading } = useFilterIngredients();
+  const { ingredients, loading, onAddIs, selectedIds } = useFilterIngredients();
 
   const items = ingredients.map((item) => ({ value: String(item.id), text: item.name }));
 
@@ -19,8 +19,8 @@ export const Filters: FC<Props> = ({ className }) => {
     <div className={cn(className)}>
       <Title text={'Фильтрация'} size="sm" className="mb-5 font-bold" />
       <div className="flex flex-col gap-4">
-        <FilterCheckbox text={'Можно собирать'} value="1" />
-        <FilterCheckbox text={'Новинки'} value="2" />
+        <FilterCheckbox name="collection" text={'Можно собирать'} value="1" />
+        <FilterCheckbox name="new" text={'Новинки'} value="2" />
       </div>
       <div className="mt-5 border-y border-y-neutral-100 py-6 pb-7">
         <p className="font-bold mb-3">Цена от и до:</p>
@@ -38,6 +38,9 @@ export const Filters: FC<Props> = ({ className }) => {
           defaultItems={items.slice(0, 6)}
           items={items}
           loading={loading}
+          onClickCheckbox={onAddIs}
+          selectedIds={selectedIds}
+          name="ingredients"
         />
       </div>
     </div>
