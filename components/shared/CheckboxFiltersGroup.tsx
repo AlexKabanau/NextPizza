@@ -8,12 +8,12 @@ import { Input, Skeleton } from '../ui';
 type Props = {
   title: string;
   items: Item[];
-  defaultItems: Item[];
+  defaultItems?: Item[];
   limit?: number;
   serchInputPlaceholder?: string;
   onClickCheckbox?: (value: string) => void;
   dafaultValue?: string[];
-  selectedIds?: Set<string>;
+  selectedValues?: Set<string>;
   className?: string;
   loading?: boolean;
   name?: string;
@@ -30,7 +30,7 @@ export const CheckboxFiltersGroup: FC<Props> = ({
   onClickCheckbox,
   dafaultValue,
   loading,
-  selectedIds,
+  selectedValues,
   name,
 }) => {
   const [showAll, setShowAll] = useState(false);
@@ -55,7 +55,7 @@ export const CheckboxFiltersGroup: FC<Props> = ({
 
   const list = showAll
     ? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLowerCase()))
-    : defaultItems.slice(0, limit);
+    : (defaultItems || items).slice(0, limit);
 
   return (
     <div className={cn(className)}>
@@ -78,7 +78,7 @@ export const CheckboxFiltersGroup: FC<Props> = ({
             text={item.text}
             value={item.value}
             endAbornment={item.endAbornment}
-            checked={selectedIds?.has(item.value)}
+            checked={selectedValues?.has(item.value)}
             onCheckedChange={() => onClickCheckbox?.(item.value)}
             name={name}
           />
