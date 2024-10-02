@@ -13,7 +13,7 @@ export default async function Home() {
     },
   });
 
-  console.log(categories);
+  // console.log(categories);
 
   return (
     <>
