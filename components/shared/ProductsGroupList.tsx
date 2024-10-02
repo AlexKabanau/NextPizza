@@ -39,7 +39,7 @@ export const ProductsGroupList: FC<Props> = ({
       <div className={cn('grid grid-cols-3 gap-[50px]', listClassName)}>
         {items
           .filter((product) => product.items.length > 0)
-          .map((product, i) => (
+          .map((product) => (
             <ProductCard
               key={product.id}
               id={product.id}

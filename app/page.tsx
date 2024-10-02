@@ -2,6 +2,7 @@ import { Container, Title, TopBar, Filters, ProductsGroupList } from '@/componen
 import { prisma } from '@/prisma/PrismaClient';
 
 export default async function Home() {
+  // prisma.category.findMany
   const categories = await prisma.category.findMany({
     include: {
       product: {
