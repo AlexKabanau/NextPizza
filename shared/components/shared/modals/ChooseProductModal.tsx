@@ -14,7 +14,7 @@ type Props = {
 
 export const ChooseProductModal: FC<Props> = ({ className, product }) => {
   const router = useRouter();
-  const isPizzaForm = Boolean(product.item[0].pizzaType);
+  const isPizzaForm = Boolean(product.items[0].pizzaType);
 
   return (
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>

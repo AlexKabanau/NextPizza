@@ -1,3 +1,5 @@
+'use client';
+
 import React, { FC, useState } from 'react';
 import { cn } from '@/shared/lib/utils';
 import { GroupVariants, IngredientItem, PizzaImage, Title } from '.';
@@ -55,7 +57,7 @@ export const ChoosePizzaForm: FC<Props> = ({
                 imageUrl={ingredient.imageUrl}
                 name={ingredient.name}
                 price={ingredient.price}
-                onClick={onClickAdd}
+                onClick={() => null}
               />
             ))}
           </div>
