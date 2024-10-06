@@ -4,16 +4,23 @@ import React, { FC, useState } from 'react';
 import { cn } from '@/shared/lib/utils';
 import { GroupVariants, IngredientItem, PizzaImage, Title } from '.';
 import { Button } from '../ui';
-import { PizzaSize, pizzaSizes, pizzaTypes, PizzaType } from '@/shared/constants/pizza';
-import { Ingredient } from '@prisma/client';
+import {
+  PizzaSize,
+  pizzaSizes,
+  pizzaTypes,
+  PizzaType,
+  mapPizzaType,
+} from '@/shared/constants/pizza';
+import { Ingredient, ProductItem } from '@prisma/client';
+import { useSet } from 'react-use';
 
 type Props = {
   className?: string;
   imageUrl: string;
   name: string;
   ingredients: Ingredient[];
-  items?: any[];
-  onClickAdd?: VoidFunction;
+  items: ProductItem[];
+  onClickAddCart?: () => void;
 };
 
 export const ChoosePizzaForm: FC<Props> = ({
@@ -22,12 +29,31 @@ export const ChoosePizzaForm: FC<Props> = ({
   name,
   ingredients,
   items,
-  onClickAdd,
+  onClickAddCart,
 }) => {
   const [size, setSize] = useState<PizzaSize>(20);
   const [type, setType] = useState<PizzaType>(2);
-  const textDetails = '30 см, радиционное тесто';
-  const totalPrice = '35 p';
+
+  const [selectedIngredients, { toggle: addIngredient }] = useSet(new Set<number>([]));
+
+  const pizzaPrice = items.find((item) => item.pizzaType === type && item.size === size)?.price;
+  const totalIngredientsPrice = ingredients
+    .filter((ingredient) => selectedIngredients.has(ingredient.id))
+    .reduce((acc, ingredient) => acc + ingredient.price, 0);
+
+  const textDetails = `${size} см, ${mapPizzaType[type]} тесто`;
+  const totalPrice = pizzaPrice + totalIngredientsPrice;
+
+  const handleClickAdd = () => {
+    onClickAddCart?.();
+  };
+
+  const avaliablePizzas = items.filter((item) => item.pizzaType === type);
+  const avaliablePizzaSizes = pizzaSizes.map((item) => ({
+    name: item.name,
+    value: item.value,
+    disabled: !avaliablePizzas.some((pizza) => Number(pizza.size) === Number(item.value)),
+  }));
   return (
     <div className={cn('flex flex-1', className)}>
       <PizzaImage imageUrl={imageUrl} size={size} />
@@ -38,7 +64,7 @@ export const ChoosePizzaForm: FC<Props> = ({
 
         <div className="flex flex-col gap-4 mt-5">
           <GroupVariants
-            items={pizzaSizes}
+            items={avaliablePizzaSizes}
             value={String(size)}
             onClick={(value) => setSize(Number(value) as PizzaSize)}
           />
@@ -57,14 +83,17 @@ export const ChoosePizzaForm: FC<Props> = ({
                 imageUrl={ingredient.imageUrl}
                 name={ingredient.name}
                 price={ingredient.price}
-                onClick={() => null}
+                onClick={() => addIngredient(ingredient.id)}
+                active={selectedIngredients.has(ingredient.id)}
               />
             ))}
           </div>
         </div>
 
-        <Button className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10">
-          Дбавить в корзину за {totalPrice} Р
+        <Button
+          onClick={handleClickAdd}
+          className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10">
+          Дбавить в корзину за {totalPrice} р
         </Button>
       </div>
     </div>

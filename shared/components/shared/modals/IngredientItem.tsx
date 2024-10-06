@@ -8,7 +8,7 @@ type Props = {
   name: string;
   price: number;
   active?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 export const IngredientItem: FC<Props> = ({

@@ -28,6 +28,7 @@ export const ChooseProductModal: FC<Props> = ({ className, product }) => {
             imageUrl={product.imageUrl}
             name={product.name}
             ingredients={product.ingredients}
+            items={product.items}
           />
         ) : (
           <ChooseProductForm imageUrl={product.imageUrl} name={product.name} />

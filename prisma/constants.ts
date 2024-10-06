@@ -62,43 +62,43 @@ export const ingredients = [
   {
     name: 'Ветчина',
     price: 79,
-    imageUrl: '/images/pizzasIngredientsImages/000D3A39D824A82E11E9AFA61B9A8D61',
+    imageUrl: '/images/pizzasIngredientsImages/000D3A39D824A82E11E9AFA61B9A8D61.png',
     // imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/000D3A39D824A82E11E9AFA61B9A8D61',
   },
   {
     name: 'Пикантная пепперони',
     price: 79,
-    imageUrl: '/images/pizzasIngredientsImages/000D3A22FA54A81411E9AFA6258199C3',
+    imageUrl: '/images/pizzasIngredientsImages/000D3A22FA54A81411E9AFA6258199C3.png',
     // imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA6258199C3',
   },
   {
     name: 'Острая чоризо',
     price: 79,
-    imageUrl: '/images/pizzasIngredientsImages/000D3A22FA54A81411E9AFA62D5D6027',
+    imageUrl: '/images/pizzasIngredientsImages/000D3A22FA54A81411E9AFA62D5D6027.png',
     // imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA62D5D6027',
   },
   {
     name: 'Маринованные огурчики',
     price: 59,
-    imageUrl: '/images/pizzasIngredientsImages/000D3A21DA51A81211E9EA89958D782B',
+    imageUrl: '/images/pizzasIngredientsImages/000D3A21DA51A81211E9EA89958D782B.png',
     // imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/000D3A21DA51A81211E9EA89958D782B',
   },
   {
     name: 'Свежие томаты',
     price: 59,
-    imageUrl: '/images/pizzasIngredientsImages/000D3A39D824A82E11E9AFA7AC1A1D67',
+    imageUrl: '/images/pizzasIngredientsImages/000D3A39D824A82E11E9AFA7AC1A1D67.png',
     // imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/000D3A39D824A82E11E9AFA7AC1A1D67',
   },
   {
     name: 'Красный лук',
     price: 59,
-    imageUrl: '/images/pizzasIngredientsImages/000D3A22FA54A81411E9AFA60AE6464C',
+    imageUrl: '/images/pizzasIngredientsImages/000D3A22FA54A81411E9AFA60AE6464C.png',
     // imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA60AE6464C',
   },
   {
     name: 'Сочные ананасы',
     price: 59,
-    imageUrl: '/images/pizzasIngredientsImages/000D3A21DA51A81211E9AFA6795BA2A0',
+    imageUrl: '/images/pizzasIngredientsImages/000D3A21DA51A81211E9AFA6795BA2A0.png',
     // imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/000D3A21DA51A81211E9AFA6795BA2A0',
   },
   {
@@ -110,13 +110,13 @@ export const ingredients = [
   {
     name: 'Сладкий перец',
     price: 59,
-    imageUrl: '/images/pizzasIngredientsImages/000D3A22FA54A81411E9AFA63F774C1B',
+    imageUrl: '/images/pizzasIngredientsImages/000D3A22FA54A81411E9AFA63F774C1B.png',
     // imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA63F774C1B',
   },
   {
     name: 'Кубики брынзы',
     price: 79,
-    imageUrl: '/images/pizzasIngredientsImages/000D3A39D824A82E11E9AFA6B0FFC349',
+    imageUrl: '/images/pizzasIngredientsImages/000D3A39D824A82E11E9AFA6B0FFC349.png',
     // imageUrl: 'https://cdn.dodostatic.net/static/Img/Ingredients/000D3A39D824A82E11E9AFA6B0FFC349',
   },
   {
