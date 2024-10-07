@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { cn } from '@/shared/lib/utils';
 import { GroupVariants, IngredientItem, PizzaImage, Title } from '.';
 import { Button } from '../ui';
@@ -13,6 +13,8 @@ import {
 } from '@/shared/constants/pizza';
 import { Ingredient, ProductItem } from '@prisma/client';
 import { useSet } from 'react-use';
+import { calcTotalPizzaPrice, getAvaliablePizzaSizes } from '@/shared/lib';
+import { usePizzaOptions } from '@/shared/hooks';
 
 type Props = {
   className?: string;
@@ -31,29 +33,28 @@ export const ChoosePizzaForm: FC<Props> = ({
   items,
   onClickAddCart,
 }) => {
-  const [size, setSize] = useState<PizzaSize>(20);
-  const [type, setType] = useState<PizzaType>(2);
-
-  const [selectedIngredients, { toggle: addIngredient }] = useSet(new Set<number>([]));
-
-  const pizzaPrice = items.find((item) => item.pizzaType === type && item.size === size)?.price;
-  const totalIngredientsPrice = ingredients
-    .filter((ingredient) => selectedIngredients.has(ingredient.id))
-    .reduce((acc, ingredient) => acc + ingredient.price, 0);
-
   const textDetails = `${size} см, ${mapPizzaType[type]} тесто`;
-  const totalPrice = pizzaPrice + totalIngredientsPrice;
+
+  const totalPrice = calcTotalPizzaPrice(type, size, items, ingredients, selectedIngredients);
 
   const handleClickAdd = () => {
     onClickAddCart?.();
   };
 
-  const avaliablePizzas = items.filter((item) => item.pizzaType === type);
-  const avaliablePizzaSizes = pizzaSizes.map((item) => ({
-    name: item.name,
-    value: item.value,
-    disabled: !avaliablePizzas.some((pizza) => Number(pizza.size) === Number(item.value)),
-  }));
+  const avaliablePizzaSizes = getAvaliablePizzaSizes(type, items);
+
+  const { size, type, setSize, setType } = usePizzaOptions(avaliablePizzaSizes);
+
+  useEffect(() => {
+    const isAvaliabledSize = avaliablePizzaSizes?.find(
+      (item) => Number(item.value) === size && !item.disabled,
+    );
+    const avaliableSize = avaliablePizzaSizes?.find((item) => !item.disabled);
+    if (!isAvaliabledSize && avaliableSize) {
+      setSize(Number(avaliableSize.value) as PizzaSize);
+    }
+  }, [type]);
+
   return (
     <div className={cn('flex flex-1', className)}>
       <PizzaImage imageUrl={imageUrl} size={size} />
