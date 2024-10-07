@@ -1,19 +1,12 @@
 'use client';
 
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { cn } from '@/shared/lib/utils';
 import { GroupVariants, IngredientItem, PizzaImage, Title } from '.';
 import { Button } from '../ui';
-import {
-  PizzaSize,
-  pizzaSizes,
-  pizzaTypes,
-  PizzaType,
-  mapPizzaType,
-} from '@/shared/constants/pizza';
+import { PizzaSize, pizzaTypes, PizzaType } from '@/shared/constants/pizza';
 import { Ingredient, ProductItem } from '@prisma/client';
-import { useSet } from 'react-use';
-import { calcTotalPizzaPrice, getAvaliablePizzaSizes } from '@/shared/lib';
+import { getPizzaDetails } from '@/shared/lib';
 import { usePizzaOptions } from '@/shared/hooks';
 
 type Props = {
@@ -33,17 +26,20 @@ export const ChoosePizzaForm: FC<Props> = ({
   items,
   onClickAddCart,
 }) => {
-  const textDetails = `${size} см, ${mapPizzaType[type]} тесто`;
+  const { size, type, selectedIngredients, avaliablePizzaSizes, setSize, setType, addIngredient } =
+    usePizzaOptions(items);
 
-  const totalPrice = calcTotalPizzaPrice(type, size, items, ingredients, selectedIngredients);
+  const { totalPrice, textDetails } = getPizzaDetails(
+    type,
+    size,
+    items,
+    ingredients,
+    selectedIngredients,
+  );
 
   const handleClickAdd = () => {
     onClickAddCart?.();
   };
-
-  const avaliablePizzaSizes = getAvaliablePizzaSizes(type, items);
-
-  const { size, type, setSize, setType } = usePizzaOptions(avaliablePizzaSizes);
 
   useEffect(() => {
     const isAvaliabledSize = avaliablePizzaSizes?.find(
