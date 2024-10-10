@@ -3,7 +3,7 @@ import { Api } from '../services/apiClient';
 import { getCartDetails } from '../lib';
 import { CartStateItem } from '../lib/getCartDetails';
 
-export type CartStateType = {
+export interface CartStateType {
   loading: boolean;
   error: boolean;
   totalAmount: number;
@@ -13,7 +13,7 @@ export type CartStateType = {
   updateItemQuantity: (id: number, quantity: number) => Promise<void>; // запрос на обновление
   addCartItem: (values: any) => Promise<void>; //запрос на добавление товара в корзину
   removeCartItem: (id: number) => Promise<void>; //запрос на удаление товара из корзины
-};
+}
 
 export const useCartStore = create<CartStateType>((set, get) => ({
   items: [],
@@ -34,6 +34,6 @@ export const useCartStore = create<CartStateType>((set, get) => ({
     }
   },
   removeCartItem: async (id: number) => {},
-  addCartItem: async (values: any) => {},
   updateItemQuantity: async (id: number, quantity: number) => {},
+  addCartItem: async (values: any) => {},
 }));

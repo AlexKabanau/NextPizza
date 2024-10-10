@@ -37,6 +37,8 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    /* проверить получение по localhost:3000/api/cart */
+
     return NextResponse.json(userCart);
   } catch (error) {
     console.log(error);

@@ -4,7 +4,6 @@ import React, { FC, useEffect } from 'react';
 import { cn } from '@/shared/lib/utils';
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
@@ -24,6 +23,8 @@ type Props = {
 };
 
 export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, className }) => {
+  // const fetchCartItems = useCartStore((state) => state.fetchCartItems);
+
   const [totalAmount, fetchCartItems, items] = useCartStore((state) => [
     state.totalAmount,
     state.fetchCartItems,
@@ -41,7 +42,8 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
         <SheetContent className="flex flex-col justify-between pb-0 bg-[#f4F1EE]">
           <SheetHeader>
             <SheetTitle>
-              В корзине <span className="font-bold">{items.length} товара</span>
+              {/* В корзине <span className="font-bold">10 товара</span> */}В корзине{' '}
+              <span className="font-bold">{items.length} товара</span>
             </SheetTitle>
           </SheetHeader>
 
@@ -55,7 +57,7 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
                   details={
                     item.pizzaSize && item.pizzaType
                       ? GetCartItemDetails(
-                          item.ingredients as Ingredient[],
+                          item.ingredients,
                           item.pizzaType as PizzaType,
                           item.pizzaSize as PizzaSize,
                         )
@@ -76,6 +78,7 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
                   Итого
                   <div className="flex-1 border-b border-dashed border-b-neutral-200 relative -top-1 mx-2" />
                 </span>
+                {/* <span className="font-bold text-lg">10 Р</span> */}
                 <span className="font-bold text-lg">{totalAmount} Р</span>
               </div>
             </div>

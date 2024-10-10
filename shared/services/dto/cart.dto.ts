@@ -7,6 +7,6 @@ export type CartItemDTO = CartItem & {
   ingredients: Ingredient[];
 };
 
-export type CartDTO = Cart & {
+export interface CartDTO extends Cart {
   items: CartItemDTO[];
-};
+}

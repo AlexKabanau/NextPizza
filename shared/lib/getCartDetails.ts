@@ -1,4 +1,3 @@
-import { Cart, ProductItem } from '@prisma/client';
 import { CartDTO } from '../services/dto/cart.dto';
 import { calcCartItemTotalPrice } from '.';
 
@@ -10,13 +9,16 @@ export type CartStateItem = {
   price: number;
   pizzaSize?: number | null;
   pizzaType?: number | null;
+  // pizzaSize?: PizzaSize | null;
+  // pizzaType?: PizzaType | null;
+
   ingredients: Array<{ name: string; price: number }>;
 };
 
-type RetunPropsType = {
+interface RetunPropsType {
   items: CartStateItem[];
   totalAmount: number;
-};
+}
 
 export const getCartDetails = (data: CartDTO): RetunPropsType => {
   const items = data.items.map((item) => ({
