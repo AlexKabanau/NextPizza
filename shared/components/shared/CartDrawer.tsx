@@ -25,15 +25,34 @@ type Props = {
 export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, className }) => {
   // const fetchCartItems = useCartStore((state) => state.fetchCartItems);
 
-  const [totalAmount, fetchCartItems, items] = useCartStore((state) => [
+  const [
+    totalAmount,
+    items,
+    fetchCartItems,
+    // loading,
+    // addCartItem,
+    // updateItemQuantity,
+    // removeCartItem,
+  ] = useCartStore((state) => [
     state.totalAmount,
-    state.fetchCartItems,
     state.items,
+    state.fetchCartItems,
+    // state.loading,
+    // state.addCartItem,
+    // debounce(state.updateItemQuantity, 200),
+    // state.removeCartItem,
   ]);
 
   useEffect(() => {
     fetchCartItems();
+    console.log(items);
+    console.log(totalAmount);
   }, []);
+  const fu1 = () => {
+    // fetchCartItems();
+    // console.log(items);
+    // console.log(totalAmount);
+  };
 
   return (
     <div className={cn(className)}>
@@ -42,7 +61,7 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
         <SheetContent className="flex flex-col justify-between pb-0 bg-[#f4F1EE]">
           <SheetHeader>
             <SheetTitle>
-              {/* В корзине <span className="font-bold">10 товара</span> */}В корзине{' '}
+              {/* В корзине <span className="font-bold">10 товара</span>В корзине{' '} */}В корзине{' '}
               <span className="font-bold">{items.length} товара</span>
             </SheetTitle>
           </SheetHeader>
@@ -84,7 +103,7 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
             </div>
 
             <Link href="/cart">
-              <Button type="submit" className="w-full h-12 text-base">
+              <Button onClick={fu1} type="submit" className="w-full h-12 text-base">
                 Оформить заказ
                 <ArrowRight className="w-5 ml-2" />
               </Button>
