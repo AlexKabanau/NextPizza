@@ -31,12 +31,13 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
     fetchCartItems,
     // loading,
     // addCartItem,
-    // updateItemQuantity,
+    updateItemQuantity,
     // removeCartItem,
   ] = useCartStore((state) => [
     state.totalAmount,
     state.items,
     state.fetchCartItems,
+    state.updateItemQuantity,
     // state.loading,
     // state.addCartItem,
     // debounce(state.updateItemQuantity, 200),
@@ -45,13 +46,19 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
 
   useEffect(() => {
     fetchCartItems();
-    console.log(items);
-    console.log(totalAmount);
-  }, []);
-  const fu1 = () => {
-    // fetchCartItems();
     // console.log(items);
     // console.log(totalAmount);
+  }, []);
+  // const fu1 = () => {
+  // fetchCartItems();
+  // console.log(items);
+  // console.log(totalAmount);
+  // };
+
+  const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
+    const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
+
+    updateItemQuantity(id, newQuantity);
   };
 
   return (
@@ -85,6 +92,7 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
                   name={item.name}
                   price={item.price}
                   quantity={item.quantity}
+                  onClickCountButton={(type) => onClickCountButton(item.id, item.quantity, type)}
                 />
               ))}
             </div>
@@ -103,7 +111,7 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
             </div>
 
             <Link href="/cart">
-              <Button onClick={fu1} type="submit" className="w-full h-12 text-base">
+              <Button type="submit" className="w-full h-12 text-base">
                 Оформить заказ
                 <ArrowRight className="w-5 ml-2" />
               </Button>
