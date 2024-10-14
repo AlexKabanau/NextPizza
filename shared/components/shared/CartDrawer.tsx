@@ -32,16 +32,16 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
     // loading,
     // addCartItem,
     updateItemQuantity,
-    // removeCartItem,
+    removeCartItem,
   ] = useCartStore((state) => [
     state.totalAmount,
     state.items,
     state.fetchCartItems,
     state.updateItemQuantity,
+    state.removeCartItem,
     // state.loading,
     // state.addCartItem,
     // debounce(state.updateItemQuantity, 200),
-    // state.removeCartItem,
   ]);
 
   useEffect(() => {
@@ -93,6 +93,7 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
                   price={item.price}
                   quantity={item.quantity}
                   onClickCountButton={(type) => onClickCountButton(item.id, item.quantity, type)}
+                  onClickRemoveButton={() => removeCartItem(item.id)}
                 />
               ))}
             </div>
@@ -108,14 +109,13 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
                 {/* <span className="font-bold text-lg">10 Р</span> */}
                 <span className="font-bold text-lg">{totalAmount} BYN</span>
               </div>
+              <Link href="/cart">
+                <Button type="submit" className="w-full h-12 text-base">
+                  Оформить заказ
+                  <ArrowRight className="w-5 ml-2" />
+                </Button>
+              </Link>
             </div>
-
-            <Link href="/cart">
-              <Button type="submit" className="w-full h-12 text-base">
-                Оформить заказ
-                <ArrowRight className="w-5 ml-2" />
-              </Button>
-            </Link>
           </SheetFooter>
         </SheetContent>
       </Sheet>
