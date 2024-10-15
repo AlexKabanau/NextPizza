@@ -9,12 +9,13 @@ type Props = {
   className?: string;
   imageUrl: string;
   name: string;
-  onClickAdd?: VoidFunction;
+  onSubmit?: VoidFunction;
+  price: number;
 };
 
-export const ChooseProductForm: FC<Props> = ({ className, imageUrl, name, onClickAdd }) => {
-  const textDetails = '30 см, радиционное тесто';
-  const totalPrice = '35 p';
+export const ChooseProductForm: FC<Props> = ({ className, imageUrl, name, onSubmit, price }) => {
+  // const textDetails = '30 см, радиционное тесто';
+  // const totalPrice = '35 p';
   return (
     <div className={cn('flex flex-1', className)}>
       <div className={cn('flex items-center justify-center flex-1 relative w-full', className)}>
@@ -29,10 +30,10 @@ export const ChooseProductForm: FC<Props> = ({ className, imageUrl, name, onClic
 
       <div className="w-[490px] bg-[#FCFCFC] p-7">
         <Title text={name} />
-        <p className="text-gray-400">{textDetails}</p>
+        {/* <p className="text-gray-400">{textDetails}</p> */}
 
-        <Button className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10">
-          Дбавить в корзину за {totalPrice} Р
+        <Button onClick={onSubmit} className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10">
+          Дбавить в корзину за {price} Р
         </Button>
       </div>
     </div>
