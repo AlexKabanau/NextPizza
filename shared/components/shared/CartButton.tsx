@@ -12,7 +12,7 @@ export const CartButton: FC<Props> = ({ className }) => {
   return (
     <CartDrawer>
       <Button className={cn('group relative', className)}>
-        <b>520 BYN</b>
+        <b>520 $</b>
         <span className="h-full w-[1px] bg-white/30 mx-3"></span>
         <div className="flex items-center gap-1 transition duration-300 group-hover:opacity-0">
           <ShoppingBasket className="h-4 w-4 relative" strokeWidth={2} />

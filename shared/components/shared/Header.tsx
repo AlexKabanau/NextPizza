@@ -3,7 +3,7 @@ import { cn } from '@/shared/lib/utils';
 import { CartButton, Container, SearchInput } from './index';
 import Image from 'next/image';
 import { Button } from '../ui/index';
-import { ArrowBigRight, ShoppingBasket, UserRound } from 'lucide-react';
+import { UserRound } from 'lucide-react';
 import Link from 'next/link';
 
 type Props = {

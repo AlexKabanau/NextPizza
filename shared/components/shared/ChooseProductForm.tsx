@@ -9,11 +9,19 @@ type Props = {
   className?: string;
   imageUrl: string;
   name: string;
+  loading?: boolean;
   onSubmit?: VoidFunction;
   price: number;
 };
 
-export const ChooseProductForm: FC<Props> = ({ className, imageUrl, name, onSubmit, price }) => {
+export const ChooseProductForm: FC<Props> = ({
+  className,
+  imageUrl,
+  name,
+  loading,
+  onSubmit,
+  price,
+}) => {
   // const textDetails = '30 см, радиционное тесто';
   // const totalPrice = '35 p';
   return (
@@ -32,8 +40,11 @@ export const ChooseProductForm: FC<Props> = ({ className, imageUrl, name, onSubm
         <Title text={name} />
         {/* <p className="text-gray-400">{textDetails}</p> */}
 
-        <Button onClick={onSubmit} className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10">
-          Дбавить в корзину за {price} Р
+        <Button
+          loading={loading}
+          onClick={onSubmit}
+          className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10">
+          Дбавить в корзину за {price} $
         </Button>
       </div>
     </div>
