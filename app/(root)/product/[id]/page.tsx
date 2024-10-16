@@ -21,6 +21,7 @@ export default async function ProductPage({ params: { id } }: { params: { id: st
           </p>
 
           <GroupVariants
+            value="2"
             items={[
               {
                 name: 'Маленькая',

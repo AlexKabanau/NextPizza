@@ -22,15 +22,13 @@ export const ChooseProductModal: FC<Props> = ({ className, product }) => {
   // const [loading, setLoading] = useState(false);
 
   const onSubmitProduct = async (productItemId?: number, ingredients?: number[]) => {
+    const itemId = productItemId ?? firstItem.id;
     try {
-      if (isPizzaForm) {
-        await addCartItem({
-          productItemId,
-          ingredients,
-        });
-      } else {
-        await addCartItem({ productItemId: firstItem.id });
-      }
+      await addCartItem({
+        productItemId: itemId,
+        ingredients,
+      });
+
       toast.success('Добавлено в корзину');
       router.back();
     } catch (error) {

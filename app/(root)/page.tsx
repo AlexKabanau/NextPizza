@@ -1,5 +1,6 @@
 import { Container, Title, TopBar, Filters, ProductsGroupList } from '@/shared/components/shared';
 import { prisma } from '@/prisma/PrismaClient';
+import { Suspense } from 'react';
 
 export default async function HomePage() {
   // prisma.category.findMany
@@ -26,7 +27,9 @@ export default async function HomePage() {
         <div className="flex gap-[80px]">
           {/* фильтрация */}
           <div className="w-[250px]">
-            <Filters />
+            <Suspense>
+              <Filters />
+            </Suspense>
           </div>
           {/* список товаров */}
           <div className="flex-1">
