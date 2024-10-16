@@ -21,5 +21,5 @@ export const useQueryFilters = (filters: UseQueryFiltersPropsTypes) => {
     router.push(`?${queryString}`, {
       scroll: false,
     });
-  }, [filters]);
+  }, [filters, router]);
 };
