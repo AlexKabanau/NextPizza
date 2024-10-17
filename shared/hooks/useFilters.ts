@@ -1,6 +1,6 @@
 import { useSearchParams } from 'next/navigation';
 import { useSet } from 'react-use';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 type PricePropsType = {
   priceFrom?: number;
@@ -66,14 +66,17 @@ export const useFilters = (): ReturnPropsType => {
     }));
   };
 
-  return {
-    sizes,
-    pizzaTypes,
-    selectedIngredients,
-    prices,
-    setPrices: updatePrice,
-    setPizzaTypes: togglePizzaTypes,
-    setSizes: toggleSizes,
-    setIngredients: toggleIngredients,
-  };
+  return useMemo(
+    () => ({
+      sizes,
+      pizzaTypes,
+      selectedIngredients,
+      prices,
+      setPrices: updatePrice,
+      setPizzaTypes: togglePizzaTypes,
+      setSizes: toggleSizes,
+      setIngredients: toggleIngredients,
+    }),
+    [sizes, pizzaTypes, selectedIngredients, prices],
+  );
 };
