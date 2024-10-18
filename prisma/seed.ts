@@ -61,6 +61,8 @@ async function up() {
       ingredients: {
         connect: _ingredients.slice(0, 5),
       },
+      description:
+        'Пикантная пепперони , увеличенная порция моцареллы, томаты , фирменный томатный соус',
     },
   });
 
@@ -73,6 +75,7 @@ async function up() {
       ingredients: {
         connect: _ingredients.slice(5, 10),
       },
+      description: 'Увеличенная порция моцареллы, сыры чеддер и пармезан, фирменный соус альфредо',
     },
   });
 
@@ -85,6 +88,7 @@ async function up() {
       ingredients: {
         connect: _ingredients.slice(10, 40),
       },
+      description: 'Острые колбаски чоризо, зеленый перец, моцарелла, фирменный томатный соус',
     },
   });
 
@@ -126,6 +130,24 @@ async function up() {
       generateProductItem({ productId: 15 }),
       generateProductItem({ productId: 16 }),
       generateProductItem({ productId: 17 }),
+      generateProductItem({ productId: 18 }),
+      generateProductItem({ productId: 19 }),
+      generateProductItem({ productId: 20 }),
+      generateProductItem({ productId: 21 }),
+      generateProductItem({ productId: 22 }),
+      generateProductItem({ productId: 23 }),
+      generateProductItem({ productId: 24 }),
+      generateProductItem({ productId: 25 }), //закуски
+      generateProductItem({ productId: 26 }),
+      generateProductItem({ productId: 27 }),
+      generateProductItem({ productId: 28 }),
+      generateProductItem({ productId: 29 }),
+      generateProductItem({ productId: 30 }),
+      generateProductItem({ productId: 31 }),
+      generateProductItem({ productId: 32 }),
+      generateProductItem({ productId: 33 }),
+      generateProductItem({ productId: 34 }),
+      generateProductItem({ productId: 35 }),
     ],
   });
 
