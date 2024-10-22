@@ -7,6 +7,7 @@ export type CartStateItem = {
   name: string;
   imageUrl: string;
   price: number;
+  disabled?: boolean;
   pizzaSize?: number | null;
   pizzaType?: number | null;
   // pizzaSize?: PizzaSize | null;
@@ -26,6 +27,7 @@ export const getCartDetails = (data: CartDTO): RetunPropsType => {
     quantity: item.quantity,
     name: item.productItem.product.name,
     imageUrl: item.productItem.product.imageUrl,
+    disabled: false,
     price: calcCartItemTotalPrice(item),
     pizzaSize: item.productItem.size,
     pizzaType: item.productItem.pizzaType,
@@ -33,7 +35,7 @@ export const getCartDetails = (data: CartDTO): RetunPropsType => {
       name: ingredient.name,
       price: ingredient.price,
     })),
-  }));
+  })) as CartStateItem[];
 
   return {
     items,
