@@ -19,3 +19,5 @@ export { ChoosePizzaForm } from './ChoosePizzaForm';
 export { CartButton } from './CartButton';
 export { CartDrawer } from './CartDrawer';
 export { ProductForm } from './productForm';
+export { WhiteBlock } from './white-block';
+export { CheckoutItemDetails } from './CheckoutItemDetails';

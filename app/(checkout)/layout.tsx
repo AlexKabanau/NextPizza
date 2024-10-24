@@ -1,4 +1,4 @@
-import { Header } from '@/shared/components/shared';
+import { Container, Header } from '@/shared/components/shared';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -9,8 +9,10 @@ export const metadata: Metadata = {
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <main className="min-h-screen bg-[#f4f1ee]">
-      <Header hasSearch={false} className="border-gray-200" />
-      {children}
+      <Container>
+        <Header hasSearch={false} hasCart={false} className="border-b-gray-200" />
+        {children}
+      </Container>
     </main>
   );
 }
