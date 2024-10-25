@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import { cn } from '@/shared/lib/utils';
 import {
   Sheet,
@@ -16,10 +16,11 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { CartDrawerItem } from './CartDrawerItem';
 import { GetCartItemDetails } from '@/shared/lib';
-import { useCartStore } from '@/shared/store';
+// import { useCartStore } from '@/shared/store';
 import { PizzaSize, PizzaType } from '@/shared/constants/pizza';
 import Image from 'next/image';
 import { Title } from './Title';
+import { useCart } from '@/shared/hooks';
 
 type Props = {
   className?: string;
@@ -28,35 +29,46 @@ type Props = {
 export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, className }) => {
   // const fetchCartItems = useCartStore((state) => state.fetchCartItems);
 
-  const [
+  const {
     totalAmount,
     items,
-    fetchCartItems,
+    // fetchCartItems,
     // loading,
     // addCartItem,
     updateItemQuantity,
     removeCartItem,
-  ] = useCartStore((state) => [
-    state.totalAmount,
-    state.items,
-    state.fetchCartItems,
-    state.updateItemQuantity,
-    state.removeCartItem,
-    // state.loading,
-    // state.addCartItem,
-    // debounce(state.updateItemQuantity, 200),
-  ]);
+  } = useCart();
+  // const [
+  //   totalAmount,
+  //   items,
+  //   fetchCartItems,
+  //   // loading,
+  //   // addCartItem,
+  //   updateItemQuantity,
+  //   removeCartItem,
+  // ] = useCartStore((state) => [
+  //   state.totalAmount,
+  //   state.items,
+  //   state.fetchCartItems,
+  //   state.updateItemQuantity,
+  //   state.removeCartItem,
+  //   // state.loading,
+  //   // state.addCartItem,
+  //   // debounce(state.updateItemQuantity, 200),
+  // ]);
 
-  useEffect(() => {
-    fetchCartItems();
-    // console.log(items);
-    // console.log(totalAmount);
-  }, []);
-  // const fu1 = () => {
-  // fetchCartItems();
-  // console.log(items);
-  // console.log(totalAmount);
-  // };
+  // useEffect(() => {
+  //   fetchCartItems();
+  //   // console.log(items);
+  //   // console.log(totalAmount);
+  // }, []);
+  // // const fu1 = () => {
+  // // fetchCartItems();
+  // // console.log(items);
+  // // console.log(totalAmount);
+  // // };
+
+  const [redirecting, setRedirecting] = useState(false);
 
   const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
     const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
@@ -108,15 +120,11 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
                       <CartDrawerItem
                         id={item.id}
                         imageUrl={item.imageUrl}
-                        details={
-                          item.pizzaSize && item.pizzaType
-                            ? GetCartItemDetails(
-                                item.ingredients,
-                                item.pizzaType as PizzaType,
-                                item.pizzaSize as PizzaSize,
-                              )
-                            : ''
-                        }
+                        details={GetCartItemDetails(
+                          item.ingredients,
+                          item.pizzaType as PizzaType,
+                          item.pizzaSize as PizzaSize,
+                        )}
                         name={item.name}
                         price={item.price}
                         quantity={item.quantity}
@@ -140,8 +148,12 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
                       {/* <span className="font-bold text-lg">10 Р</span> */}
                       <span className="font-bold text-lg">{totalAmount} $</span>
                     </div>
-                    <Link href="/cart">
-                      <Button type="submit" className="w-full h-12 text-base">
+                    <Link href="/checkout">
+                      <Button
+                        onClick={() => setRedirecting(true)}
+                        loading={redirecting}
+                        type="submit"
+                        className="w-full h-12 text-base">
                         Оформить заказ
                         <ArrowRight className="w-5 ml-2" />
                       </Button>

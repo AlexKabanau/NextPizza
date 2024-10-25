@@ -21,3 +21,6 @@ export { CartDrawer } from './CartDrawer';
 export { ProductForm } from './productForm';
 export { WhiteBlock } from './white-block';
 export { CheckoutItemDetails } from './CheckoutItemDetails';
+export { CheckoutItem } from './CheckoutItem';
+export { CartItemSkeleton } from './CartItemSkeleton';
+export { CartCheckoutSideBar } from './CartCheckoutSideBar';

@@ -3,8 +3,8 @@ import { CartStateItem } from './getCartDetails';
 
 export const GetCartItemDetails = (
   ingredients: CartStateItem['ingredients'],
-  pizzaType: PizzaType,
-  pizzaSize: PizzaSize,
+  pizzaType?: PizzaType,
+  pizzaSize?: PizzaSize,
 ): string => {
   const details = [];
 
