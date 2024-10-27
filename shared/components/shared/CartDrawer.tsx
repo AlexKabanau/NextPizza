@@ -91,10 +91,10 @@ export const CartDrawer: FC<React.PropsWithChildren<Props>> = ({ children, class
               </SheetHeader>
             )}
 
-            {totalAmount && (
+            {!totalAmount && (
               <div className="flex flex-col items-center justify-center w-72 mx-auto">
                 <Image
-                  src="/assets/image/empty-box.png"
+                  src="/assets/images/empty-box.png"
                   alt="Empty Cart"
                   width={120}
                   height={120}
