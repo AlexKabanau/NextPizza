@@ -2,18 +2,18 @@
 
 import React, { FC } from 'react';
 import { cn } from '@/shared/lib/utils';
-import { Input } from '../../ui';
 import { ClearButton, ErrorText, RequiredSymbol } from '..';
 import { useFormContext } from 'react-hook-form';
+import { Textarea } from '../..';
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   className?: string;
   name: string;
   label?: string;
   required?: boolean;
 }
 
-export const FormInput: FC<Props> = ({ className, name, label, required, ...props }) => {
+export const FormTextarea: FC<Props> = ({ className, name, label, required, ...props }) => {
   const {
     register,
     formState: { errors },
@@ -37,7 +37,7 @@ export const FormInput: FC<Props> = ({ className, name, label, required, ...prop
         </p>
       )}
       <div className="relative">
-        <Input className="h-12 text-md" name={name} {...props} {...register(name)} />
+        <Textarea className="h-12 text-md" {...props} {...register(name)} />
 
         {value && <ClearButton onClick={onClickClear} />}
       </div>

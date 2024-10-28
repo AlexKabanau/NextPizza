@@ -5,25 +5,22 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
   CartCheckoutSideBar,
-  // CheckoutItemDetails,
   Container,
   Title,
   CheckoutCart,
   CheckoutPersonalForm,
   CheckoutAddressForm,
-} from '@/shared/components/shared';
+} from '@/shared/components';
 import { useCart } from '@/shared/hooks';
-import {
-  checkoutFormSchema,
-  CheckoutFormSchemaTypes,
-} from '@/shared/components/shared/checkout/checkoutFormSchema';
+import { checkoutFormSchema, CheckoutFormSchemaTypes } from '@/shared/constants';
+import { cn } from '@/shared/lib/utils';
 
 export default function CheckoutPage() {
   const {
     totalAmount,
     items,
     // fetchCartItems,
-    // loading,
+    loading,
     // addCartItem,
     updateItemQuantity,
     removeCartItem,
@@ -63,14 +60,15 @@ export default function CheckoutPage() {
                 items={items}
                 onClickCountButton={onClickCountButton}
                 removeCartItem={removeCartItem}
+                loading={loading}
               />
 
-              <CheckoutPersonalForm />
+              <CheckoutPersonalForm className={loading ? 'opacity-40 pointer-events-none' : ''} />
 
-              <CheckoutAddressForm />
+              <CheckoutAddressForm className={loading ? 'opacity-40 pointer-events-none' : ''} />
             </div>
             <div className="w-[450px]">
-              <CartCheckoutSideBar totalAmount={totalAmount} />
+              <CartCheckoutSideBar totalAmount={totalAmount} loading={loading} />
             </div>
           </div>
         </form>

@@ -4,7 +4,7 @@ import { cn } from '@/shared/lib/utils';
 type Props = {
   className?: string;
   title?: React.ReactNode;
-  value?: string;
+  value?: React.ReactNode;
 };
 
 export const CheckoutItemDetails: FC<Props> = ({ className, title, value }) => {

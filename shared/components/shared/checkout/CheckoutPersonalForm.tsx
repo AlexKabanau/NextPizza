@@ -13,6 +13,7 @@ export const CheckoutPersonalForm: FC<Props> = ({ className }) => {
         <FormInput name="firstName" className="text-base" placeholder="Имя" />
         <FormInput name="lastName" className="text-base" placeholder="Фамилия" />
         <FormInput name="email" className="text-base" placeholder="e-mail" />
+        {/* TODO React Imask */}
         <FormInput name="phone" className="text-base" placeholder="Телефон" />
       </div>
     </WhiteBlock>

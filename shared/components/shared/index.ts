@@ -1,3 +1,7 @@
+export * from './modals';
+export * from './form-components';
+export * from './checkout';
+
 export { Container } from './Container';
 export { Header } from './Header';
 export { Title } from './Title';
@@ -13,9 +17,6 @@ export { ProductsGroupList } from './ProductsGroupList';
 export { SearchInput } from './SearchInput';
 export { PizzaImage } from './PizzaImage';
 export { GroupVariants } from './GroupVariants';
-export * from './modals';
-export * from './form-components';
-export * from './checkout';
 export { ChooseProductForm } from './ChooseProductForm';
 export { ChoosePizzaForm } from './ChoosePizzaForm';
 export { CartButton } from './CartButton';
@@ -29,3 +30,5 @@ export { CartCheckoutSideBar } from './CartCheckoutSideBar';
 export { RequiredSymbol } from './RequiredSymbol';
 export { ErrorText } from './ErrorText';
 export { ClearButton } from './ClearButton';
+export { AddressInput } from './address-input';
+export { CheckoutItemSkeleton } from './CheckoutItemSkeleton';
