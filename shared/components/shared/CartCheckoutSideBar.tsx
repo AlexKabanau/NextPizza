@@ -58,6 +58,7 @@ export const CartCheckoutSideBar: FC<Props> = ({ className, totalAmount, loading
         />
         <Button
           type="submit"
+          loading={loading}
           // disabled={!totalAmount || submiting}
           disabled={false}
           className="w-full h-14 rounded-2xl mt-6 text-base font-bold">
