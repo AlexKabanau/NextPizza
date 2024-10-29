@@ -5,6 +5,8 @@ import { CheckoutFormSchemaTypes } from '@/shared/constants';
 import { prisma } from '@/prisma/PrismaClient';
 import { OrderStatus } from '@prisma/client';
 import { cookies } from 'next/headers';
+import { sendEmail } from '@/shared/lib';
+import { PayOrderTemplate } from '@/shared/components';
 
 export async function createOrder(data: CheckoutFormSchemaTypes) {
   try {
@@ -69,7 +71,19 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
         cartId: userCart.id,
       },
     });
-  } catch (error) {}
 
-  return '13';
+    //TODO: прикрепить оплату
+
+    await sendEmail(
+      data.email,
+      `NexPizza / Оплатите заказ № ${order.id}`,
+      PayOrderTemplate({
+        orderId: order.id,
+        totalAmount: order.totalAmount,
+        paymentUrl: 'google.com',
+      }),
+    );
+  } catch (error) {
+    console.log('[CreatedOrder] Server error', error);
+  }
 }
