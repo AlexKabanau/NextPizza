@@ -5,7 +5,7 @@ import { CheckoutFormSchemaTypes } from '@/shared/constants';
 import { prisma } from '@/prisma/PrismaClient';
 import { OrderStatus } from '@prisma/client';
 import { cookies } from 'next/headers';
-import { sendEmail } from '@/shared/lib';
+import { createPayment, sendEmail } from '@/shared/lib';
 import { PayOrderTemplate } from '@/shared/components';
 
 export async function createOrder(data: CheckoutFormSchemaTypes) {
@@ -74,15 +74,37 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
 
     //TODO: прикрепить оплату
 
+    const paymentData = await createPayment({
+      amount: order.totalAmount,
+      orderId: order.id,
+      description: 'Оплата заказа №' + order.id,
+    });
+
+    if (!paymentData) {
+      throw new Error('Payment data not found');
+    }
+
+    await prisma.order.update({
+      where: {
+        id: order.id,
+      },
+      data: {
+        paymentId: paymentData.id,
+      },
+    });
+
+    const paymentUrl = paymentData.confirmation.confirmation_url;
+
     await sendEmail(
       data.email,
       `NexPizza / Оплатите заказ № ${order.id}`,
       PayOrderTemplate({
         orderId: order.id,
         totalAmount: order.totalAmount,
-        paymentUrl: 'google.com',
+        paymentUrl,
       }),
     );
+    return paymentUrl;
   } catch (error) {
     console.log('[CreatedOrder] Server error', error);
   }
