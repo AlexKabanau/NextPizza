@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
         status: isSucceeded ? OrderStatus.SUCCEEDED : OrderStatus.CANCELED,
       },
     });
-    const items = order?.items as unknown as CartItemDTO[];
+    const items = JSON.parse(order?.items as unknown as string) as CartItemDTO[];
 
     if (isSucceeded) {
       await sendEmail(
