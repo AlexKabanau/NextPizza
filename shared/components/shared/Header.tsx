@@ -7,8 +7,8 @@ import Image from 'next/image';
 import { Button } from '../ui/index';
 import { UserRound } from 'lucide-react';
 import Link from 'next/link';
-import { useSearchParams } from 'react-use';
 import toast from 'react-hot-toast';
+import { useSearchParams } from 'next/navigation';
 
 type Props = {
   hasSearch?: boolean;

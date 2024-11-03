@@ -12,6 +12,7 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
   try {
     const cookiesStore = cookies();
     const cartToken = cookiesStore.get('cartToken')?.value;
+    console.log('cartToken', cartToken);
 
     if (!cartToken) {
       throw new Error('Cart token not found!');
@@ -35,6 +36,7 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
         token: cartToken,
       },
     });
+    console.log('userCart', userCart);
 
     if (!userCart) {
       throw new Error('Cart not found');
@@ -42,9 +44,14 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
     if (userCart?.totalAmount === 0) {
       throw new Error('Cart is empty');
     }
+    let userId;
+    if (userCart?.userId) {
+      userId = userCart.userId;
+    }
 
     const order = await prisma.order.create({
       data: {
+        userId: userId,
         token: cartToken,
         fullName: data.firstName + ' ' + data.lastName,
         email: data.email,
@@ -56,6 +63,7 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
         items: JSON.stringify(userCart.items),
       },
     });
+    console.log('order', order);
 
     await prisma.cart.update({
       where: {
@@ -79,6 +87,7 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
       orderId: order.id,
       description: 'Оплата заказа №' + order.id,
     });
+    console.log('paymentData', paymentData);
 
     if (!paymentData) {
       throw new Error('Payment data not found');

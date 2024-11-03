@@ -8,12 +8,15 @@ type PropsType = {
 };
 
 export async function createPayment(details: PropsType) {
+  if (!process.env.YOOKASSA_API_KEY) {
+    throw new Error('Укажите ключ YOOKASSA_API_KEY');
+  }
   const { data } = await axios.post<PaymentData>(
     'https://api.yookassa.ru/v3/payments',
     {
       amount: {
         value: details.amount,
-        currency: 'USD',
+        currency: 'RUB',
       },
       capture: true,
       descroption: details.description,
@@ -22,17 +25,17 @@ export async function createPayment(details: PropsType) {
       },
       confirmation: {
         type: 'redirect',
-        return_url: process.env.YOOKASSA_CALLBACK_URL,
+        return_url: 'http://localhost:3000/?paid',
+        // return_url: process.env.YOOKASSA_CALLBACK_URL,
       },
     },
     {
       auth: {
-        username: process.env.YOOKASSA_STORE_ID as string,
-
-        password: process.env.YOOMONEY_API_KEY as string,
+        username: process.env.YOOKASSA_API_KEY,
+        password: '',
       },
       headers: {
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
         'Idempotence-Key': Math.random().toString(36).substring(7),
       },
     },
