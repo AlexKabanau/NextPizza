@@ -37,21 +37,22 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
       },
     });
     console.log('userCart', userCart);
-
+    // нет корзины - ошибка
     if (!userCart) {
       throw new Error('Cart not found');
     }
+    // нет товаров - ошибка
     if (userCart?.totalAmount === 0) {
       throw new Error('Cart is empty');
     }
-    let userId;
-    if (userCart?.userId) {
-      userId = userCart.userId;
-    }
-
+    // let userId;
+    // if (userCart?.userId) {
+    //   userId = userCart.userId;
+    // }
+    // заказ создан
     const order = await prisma.order.create({
       data: {
-        userId: userId,
+        // userId: userId,
         token: cartToken,
         fullName: data.firstName + ' ' + data.lastName,
         email: data.email,
@@ -64,7 +65,7 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
       },
     });
     console.log('order', order);
-
+    // очистка корзины
     await prisma.cart.update({
       where: {
         id: userCart.id,
@@ -73,7 +74,7 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
         totalAmount: 0,
       },
     });
-
+    // очищаем список товаров
     await prisma.cartItem.deleteMany({
       where: {
         cartId: userCart.id,
@@ -81,18 +82,18 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
     });
 
     //TODO: прикрепить оплату
-
+    // создаем плетеж
     const paymentData = await createPayment({
       amount: order.totalAmount,
       orderId: order.id,
       description: 'Оплата заказа №' + order.id,
     });
     console.log('paymentData', paymentData);
-
+    // не создали - ошибка
     if (!paymentData) {
       throw new Error('Payment data not found');
     }
-
+    // обновляем заказ
     await prisma.order.update({
       where: {
         id: order.id,
