@@ -1,8 +1,8 @@
 'use client';
 
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { cn } from '@/shared/lib/utils';
-import { CartButton, Container, SearchInput } from './index';
+import { AuthModal, CartButton, Container, ProfileButton, SearchInput } from './index';
 import Image from 'next/image';
 import { Button } from '../ui/index';
 import { UserRound } from 'lucide-react';
@@ -18,8 +18,7 @@ type Props = {
 };
 
 export const Header: FC<Props> = ({ className, hasSearch = true, hasCart = true }) => {
-  const { data: session } = useSession();
-  console.log(session, '123');
+  const [openAuthModal, setOpenAuthModal] = useState(false);
   const searchParams = useSearchParams();
   useEffect(() => {
     if (searchParams.has('paid')) {
@@ -52,18 +51,14 @@ export const Header: FC<Props> = ({ className, hasSearch = true, hasCart = true 
 
         {/* правая часть */}
         <div className="flex items-center gap-3">
-          <Button
-            onClick={() =>
-              signIn('github', {
-                callbackUrl: '/',
-                redirect: true,
-              })
-            }
-            variant={'outline'}
-            className="flex items-center gap-3">
-            <UserRound size={16} />
-            Войти
-          </Button>
+          <AuthModal
+            open={openAuthModal}
+            onClose={() => {
+              setOpenAuthModal(false);
+            }}
+          />
+
+          <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
           {hasCart && <CartButton />}
         </div>
       </Container>
