@@ -1,4 +1,4 @@
-import { updateItemQuantity } from './../../../shared/services/cart';
+import { updateItemQuantity } from '../../../shared/services/cart';
 import { prisma } from '@/prisma/PrismaClient';
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';

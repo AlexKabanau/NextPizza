@@ -45,14 +45,14 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
     if (userCart?.totalAmount === 0) {
       throw new Error('Cart is empty');
     }
-    // let userId;
-    // if (userCart?.userId) {
-    //   userId = userCart.userId;
-    // }
+    let userId;
+    if (userCart?.userId) {
+      userId = userCart.userId;
+    }
     // заказ создан
     const order = await prisma.order.create({
       data: {
-        // userId: userId,
+        userId: userId,
         token: cartToken,
         fullName: data.firstName + ' ' + data.lastName,
         email: data.email,

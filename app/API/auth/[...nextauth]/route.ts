@@ -1,10 +1,14 @@
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '@/prisma/PrismaClient';
-import { compare } from 'bcrypt';
+import { compare, hashSync } from 'bcrypt';
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: 'jwt',
+  },
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_ID || '',
@@ -13,8 +17,8 @@ export const authOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        email: { label: 'Email', type: 'text' },
-        password: { label: 'Password', type: 'password' },
+        email: { label: 'E-Mail', type: 'text' },
+        password: { label: 'Пароль', type: 'password' },
       },
       async authorize(credentials) {
         if (!credentials) {
@@ -37,7 +41,7 @@ export const authOptions = {
           return null;
         }
 
-        if (findUser.verified) {
+        if (!findUser.verified) {
           return null;
         }
 
@@ -47,25 +51,62 @@ export const authOptions = {
           name: findUser.fullName,
           role: findUser.role,
         };
-        const user = { id: '1', name: 'J Smith', email: 'jsmith@example.com' };
-
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user;
-        } else {
-          // If you return null then an error will be displayed advising the user to check their details.
-          return null;
-
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-        }
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: 'jwt',
-  },
+
   callback: {
+    async signIn({ user, account }) {
+      try {
+        if (account?.provider === 'credentials') {
+          return true;
+        }
+
+        console.log(user, account);
+
+        if (!user.email) {
+          return false;
+        }
+
+        const findUser = await prisma.user.findFirst({
+          where: {
+            OR: [
+              { provider: account?.provider, providerId: account?.providerAccountId },
+              { email: user.email },
+            ],
+          },
+        });
+
+        if (findUser) {
+          await prisma.user.update({
+            where: {
+              id: findUser.id,
+            },
+            data: {
+              provider: account?.provider,
+              providerId: account?.providerAccountId,
+            },
+          });
+          return true;
+        }
+
+        await prisma.user.create({
+          data: {
+            email: user.email,
+            fullName: user.name || 'User #' + user.id,
+            password: hashSync(user.id.toString(), 10),
+            verified: new Date(),
+            provider: account?.provider,
+            providerId: account?.providerAccountId,
+          },
+        });
+
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
     async jwt({ token }) {
       const findUser = prisma.user.findFirst({
         where: {
@@ -87,6 +128,8 @@ export const authOptions = {
         session.user.id = token.id;
         session.user.role = token.role;
       }
+
+      return session;
     },
   },
 };

@@ -25,16 +25,21 @@ export const LoginForm: FC<Props> = ({ className, onClose }) => {
   const onSubmit = async (data: FormLoginValuesType) => {
     try {
       console.log(data);
+      // const resp = await signIn('credentials', {
+      //   ...data,
+      //   redirect: false,
+      // });
+
       const resp = await signIn('credentials', {
         ...data,
         redirect: false,
       });
-
+      console.log(resp);
       if (!resp?.ok) {
         throw Error();
       }
       toast.success('Вы успешно вошли в аккаунт', {
-        icon: '✔',
+        icon: '✅',
       });
       onClose?.();
     } catch (error) {
@@ -52,7 +57,7 @@ export const LoginForm: FC<Props> = ({ className, onClose }) => {
             <Title text="Вход в систему" size="md" className="font-bold" />
             <p className="text-gray-400">Введите свою почту, чтобы войти в свой аккаунт</p>
           </div>
-          <img src="/assets/image/phone-icon.png" alt="phone-icon" width={60} height={60} />
+          <img src="/assets/images/phone-icon.png" alt="phone-icon" width={60} height={60} />
         </div>
 
         <FormInput name="email" label="E-Mail" required />
