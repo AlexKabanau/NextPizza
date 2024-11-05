@@ -33,3 +33,5 @@ export { ErrorText } from './ErrorText';
 export { ClearButton } from './ClearButton';
 export { AddressInput } from './address-input';
 export { CheckoutItemSkeleton } from './CheckoutItemSkeleton';
+export { Providers } from './providers';
+export { ProfileButton } from './profileButton';

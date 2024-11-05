@@ -92,3 +92,13 @@ html {
 #nprogress .spinner-icon {
   @apply border-t-primary border-l-primary !important;
 }
+
+#nprogress .bar {
+  @apply bg-primary !important;
+}
+#nprogress .peg {
+  @apply shadow-md shadow-primary !important;
+}
+#nprogress .spinner-icon {
+  @apply border-t-primary border-l-primary !important;
+}

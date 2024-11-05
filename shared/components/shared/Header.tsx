@@ -9,6 +9,7 @@ import { UserRound } from 'lucide-react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { useSearchParams } from 'next/navigation';
+import { useSession, signIn } from 'next-auth/react';
 
 type Props = {
   hasSearch?: boolean;
@@ -17,6 +18,8 @@ type Props = {
 };
 
 export const Header: FC<Props> = ({ className, hasSearch = true, hasCart = true }) => {
+  const { data: session } = useSession();
+  console.log(session, '123');
   const searchParams = useSearchParams();
   useEffect(() => {
     if (searchParams.has('paid')) {
@@ -49,7 +52,15 @@ export const Header: FC<Props> = ({ className, hasSearch = true, hasCart = true 
 
         {/* правая часть */}
         <div className="flex items-center gap-3">
-          <Button variant={'outline'} className="flex items-center gap-3">
+          <Button
+            onClick={() =>
+              signIn('github', {
+                callbackUrl: '/',
+                redirect: true,
+              })
+            }
+            variant={'outline'}
+            className="flex items-center gap-3">
             <UserRound size={16} />
             Войти
           </Button>
