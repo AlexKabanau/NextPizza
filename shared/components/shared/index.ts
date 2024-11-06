@@ -35,3 +35,5 @@ export { AddressInput } from './address-input';
 export { CheckoutItemSkeleton } from './CheckoutItemSkeleton';
 export { Providers } from './providers';
 export { ProfileButton } from './profileButton';
+export { InfoBlock } from './InfoBlock';
+export { ProfileForm } from './ProfileForm';
