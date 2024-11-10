@@ -42,21 +42,24 @@ export const authOptions: AuthOptions = {
           where: values,
         });
         if (!findUser) {
+          console.log('пользователь не найден');
           return null;
         }
 
         const isPasswordValid = await compare(credentials.password, findUser.password);
 
         if (!isPasswordValid) {
+          console.log('неправильный пароль');
           return null;
         }
 
         if (!findUser.verified) {
+          console.log('пользователь не верифицирован');
           return null;
         }
 
         return {
-          id: findUser.id,
+          id: String(findUser.id),
           email: findUser.email,
           name: findUser.fullName,
           role: findUser.role,
@@ -65,7 +68,7 @@ export const authOptions: AuthOptions = {
     }),
   ],
 
-  callback: {
+  callbacks: {
     async signIn({ user, account }) {
       try {
         if (account?.provider === 'credentials') {
@@ -75,6 +78,7 @@ export const authOptions: AuthOptions = {
         console.log(user, account);
 
         if (!user.email) {
+          console.log('No email provided');
           return false;
         }
 
@@ -88,6 +92,7 @@ export const authOptions: AuthOptions = {
         });
 
         if (findUser) {
+          console.log('firstUser - есть', findUser);
           await prisma.user.update({
             where: {
               id: findUser.id,
@@ -99,6 +104,8 @@ export const authOptions: AuthOptions = {
           });
           return true;
         }
+
+        console.log('firstUser - нет', findUser);
 
         await prisma.user.create({
           data: {
@@ -118,7 +125,7 @@ export const authOptions: AuthOptions = {
       }
     },
     async jwt({ token }) {
-      const findUser = prisma.user.findFirst({
+      const findUser = await prisma.user.findFirst({
         where: {
           email: token.email,
         },
@@ -135,9 +142,11 @@ export const authOptions: AuthOptions = {
     },
     session({ session, token }) {
       if (session?.user) {
+        console.log('session', session);
         session.user.id = token.id;
         session.user.role = token.role;
       }
+      console.log('session + id , role', session);
 
       return session;
     },

@@ -63,7 +63,7 @@ export const AuthModal: FC<Props> = ({ open, onClose }) => {
           </Button>
         </div>
         <Button variant={'outline'} onClick={onSwitchType} type="button" className="h-12">
-          {type === 'login' ? 'Войти' : 'Регистрация'}
+          {type !== 'login' ? 'Войти' : 'Регистрация'}
         </Button>
       </DialogContent>
     </Dialog>

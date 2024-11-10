@@ -24,7 +24,7 @@ export const LoginForm: FC<Props> = ({ className, onClose }) => {
 
   const onSubmit = async (data: FormLoginValuesType) => {
     try {
-      console.log(data);
+      // console.log(data);
       // const resp = await signIn('credentials', {
       //   ...data,
       //   redirect: false,
@@ -34,7 +34,7 @@ export const LoginForm: FC<Props> = ({ className, onClose }) => {
         ...data,
         redirect: false,
       });
-      console.log(resp);
+      // console.log(resp);
       if (!resp?.ok) {
         throw Error();
       }
