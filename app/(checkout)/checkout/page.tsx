@@ -15,7 +15,9 @@ import { useCart } from '@/shared/hooks';
 import { checkoutFormSchema, CheckoutFormSchemaTypes } from '@/shared/constants';
 import { createOrder } from '@/app/actions';
 import toast from 'react-hot-toast';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { Api } from '@/shared/services/apiClient';
 
 export default function CheckoutPage() {
   const {
@@ -28,18 +30,32 @@ export default function CheckoutPage() {
     removeCartItem,
   } = useCart();
   const [submitting, setSubmitting] = useState(false);
+  const { data: session } = useSession();
 
   const form = useForm<CheckoutFormSchemaTypes>({
     resolver: zodResolver(checkoutFormSchema),
     defaultValues: {
       firstName: '',
-      lastName: '',
+      lastName: session?.user.name || '',
       email: '',
       phone: '',
       address: '',
       comment: '',
     },
   });
+  useEffect(() => {
+    async function fetchUserInfo() {
+      const data = await Api.auth.getMe();
+      const [firstName, lastName] = data.fullName.split(' ');
+
+      form.setValue('firstName', firstName);
+      form.setValue('lastName', lastName);
+      form.setValue('email', data.email);
+    }
+    if (session) {
+      fetchUserInfo();
+    }
+  }, [session]);
 
   const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
     const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
