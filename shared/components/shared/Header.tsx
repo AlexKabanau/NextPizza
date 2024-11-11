@@ -8,7 +8,7 @@ import { Button } from '../ui/index';
 import { UserRound } from 'lucide-react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession, signIn } from 'next-auth/react';
 
 type Props = {
@@ -18,12 +18,24 @@ type Props = {
 };
 
 export const Header: FC<Props> = ({ className, hasSearch = true, hasCart = true }) => {
+  const router = useRouter();
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const searchParams = useSearchParams();
   useEffect(() => {
+    let toastMessage = '';
+
     if (searchParams.has('paid')) {
+      toastMessage = 'Заказ успешно оплачен! Информация отправлена на почту. ';
+    }
+
+    if (searchParams.has('verified')) {
+      toastMessage = 'Заказ успешно оплачен! Информация отправлена на почту.';
+    }
+
+    if (toastMessage) {
       setTimeout(() => {
-        toast.success('Заказ успешно оплачен! Информация отправлена на почту. ');
+        router.replace('/');
+        toast.success(toastMessage);
       }, 500);
     }
   }, []);

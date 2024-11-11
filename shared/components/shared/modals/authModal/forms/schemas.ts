@@ -20,4 +20,4 @@ export const formRegisterSchema = formLoginSchema
   });
 
 export type FormLoginValuesType = z.infer<typeof formLoginSchema>;
-export type FormRegisterValuesType = z.infer<typeof formRegistrSchema>;
+export type FormRegisterValuesType = z.infer<typeof formRegisterSchema>;
