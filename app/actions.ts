@@ -38,7 +38,7 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
         token: cartToken,
       },
     });
-    console.log('userCart', userCart);
+    // console.log('userCart', userCart);
     // нет корзины - ошибка
     if (!userCart) {
       throw new Error('Cart not found');
@@ -66,7 +66,7 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
         items: JSON.stringify(userCart.items),
       },
     });
-    console.log('order', order);
+    // console.log('order', order);
     // очистка корзины
     await prisma.cart.update({
       where: {
@@ -90,7 +90,7 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
       orderId: order.id,
       description: 'Оплата заказа №' + order.id,
     });
-    console.log('paymentData', paymentData);
+    // console.log('paymentData', paymentData);
     // не создали - ошибка
     if (!paymentData) {
       throw new Error('Payment data not found');

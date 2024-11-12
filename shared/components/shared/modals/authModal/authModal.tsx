@@ -57,9 +57,9 @@ export const AuthModal: FC<Props> = ({ open, onClose }) => {
             <img
               src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg"
               className="w-6 h-6"
-              alt="GitHub"
+              alt="Google"
             />
-            GitHub
+            Google
           </Button>
         </div>
         <Button variant={'outline'} onClick={onSwitchType} type="button" className="h-12">
