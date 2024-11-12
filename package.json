@@ -9,6 +9,7 @@
     "lint": "next lint",
     "prisma:push": "prisma db push",
     "prisma:gene": "prisma generate",
+    "postinstall": "prisma generate",
     "prisma:studio": "prisma studio",
     "prisma:seed": "prisma db seed"
   },
