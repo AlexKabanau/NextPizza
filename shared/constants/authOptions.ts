@@ -17,8 +17,8 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     }),
     GitHubProvider({
-      clientId: process.env.GITHUB_ID || '',
-      clientSecret: process.env.GITHUB_SECRET || '',
+      clientId: 'Ov23li7kBSTA1WulunLH',
+      clientSecret: 'b02303f2f5cef803316e61f192037d6144df16ef',
       profile(profile) {
         return {
           id: profile.id,
@@ -120,6 +120,7 @@ export const authOptions: AuthOptions = {
             verified: new Date(),
             provider: account?.provider,
             providerId: account?.providerAccountId,
+            role: 'USER' as UserRole,
           },
         });
 
