@@ -789,6 +789,7 @@ async function up() {
       generateProductItem({ productId: 65 }),
       generateProductItem({ productId: 66 }),
       generateProductItem({ productId: 67 }),
+      generateProductItem({ productId: 68 }),
     ],
   });
 

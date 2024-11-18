@@ -5,9 +5,7 @@ type StateType = {
   setActiveId: (activeId: number) => void;
 };
 
-export const useCategoryStore = create<StateType>()((set) => ({
+export const useCategoryStore = create<StateType>((set) => ({
   activeId: 1,
-  setActiveId: (activeId: number) => {
-    set({ activeId });
-  },
+  setActiveId: (activeId) => set({ activeId }),
 }));
