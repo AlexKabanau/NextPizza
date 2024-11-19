@@ -9,6 +9,7 @@ type Props = {
   className?: string;
   imageUrl: string;
   name: string;
+  description: string;
   loading?: boolean;
   onSubmit?: VoidFunction;
   price: number;
@@ -18,6 +19,7 @@ export const ChooseProductForm: FC<Props> = ({
   className,
   imageUrl,
   name,
+  description,
   loading,
   onSubmit,
   price,
@@ -38,7 +40,7 @@ export const ChooseProductForm: FC<Props> = ({
 
       <div className="w-[490px] bg-[#FCFCFC] p-7">
         <Title text={name} />
-        {/* <p className="text-gray-400">{textDetails}</p> */}
+        <p className="text-gray-400">{description}</p>
 
         <Button
           loading={loading}

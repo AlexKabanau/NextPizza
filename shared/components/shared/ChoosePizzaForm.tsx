@@ -15,6 +15,7 @@ type Props = {
   name: string;
   loading?: boolean;
   ingredients: Ingredient[];
+  descriptions: string;
   items: ProductItem[];
   onSubmit: (itemId: number, ingredients: number[]) => void;
 };
@@ -25,6 +26,7 @@ export const ChoosePizzaForm: FC<Props> = ({
   name,
   loading,
   ingredients,
+  descriptions,
   items,
   onSubmit,
 }) => {
@@ -69,6 +71,7 @@ export const ChoosePizzaForm: FC<Props> = ({
 
       <div className="w-[490px] bg-[#FCFCFC] p-7">
         <Title text={name} />
+        <p className="text-gray-400">{descriptions}</p>
         <p className="text-gray-400">{textDetails}</p>
 
         <div className="flex flex-col gap-4 mt-5">
