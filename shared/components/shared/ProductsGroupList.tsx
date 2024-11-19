@@ -10,6 +10,9 @@ import { ProductWhithRelations } from '@/@types/prisma';
 type Props = {
   title: string;
   items: ProductWhithRelations[];
+  // items: CategoryProducts['products'];
+  // products: CategoryProducts['products'];
+
   className?: string;
   listClassName?: string;
   categoryId: number;
@@ -23,7 +26,7 @@ export const ProductsGroupList: FC<Props> = ({
   categoryId,
 }) => {
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
-  const intersectionRef = React.useRef(null);
+  const intersectionRef = React.useRef<HTMLDivElement>(null);
   const intersection = useIntersection(intersectionRef, {
     threshold: 0.4,
   });
@@ -32,12 +35,12 @@ export const ProductsGroupList: FC<Props> = ({
     if (intersection?.isIntersecting) {
       setActiveCategoryId(categoryId);
     }
-  }, [categoryId, intersection?.isIntersecting, title]);
+  }, [intersection?.isIntersecting]);
 
   return (
-    <div className={cn(className)} id={title} ref={intersectionRef}>
+    <div className={cn(className)} id={title}>
       <Title text={title} size="lg" className="font-extrabold mb-5" />
-      <div className={cn('grid grid-cols-3 gap-[50px]', listClassName)}>
+      <div className={cn('grid grid-cols-3 gap-[50px]', listClassName)} ref={intersectionRef}>
         {items
           .filter((product) => product.items.length > 0)
           .map((product) => (
