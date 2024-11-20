@@ -5,8 +5,12 @@ import { cn } from '@/shared/lib/utils';
 import { CartButton, Categories, Container, SortPopup } from './index';
 import { Category } from '@prisma/client';
 
+export type Cat = {
+  name: string;
+};
 type Props = {
-  categories: Category[];
+  // categories: Category[];
+  categories: Cat[];
   className?: string;
 };
 
@@ -15,7 +19,7 @@ export const TopBar: FC<Props> = ({ categories, className }) => {
 
   React.useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 300) {
+      if (window.scrollY > 500) {
         setCartVisible(true);
       } else {
         setCartVisible(false);

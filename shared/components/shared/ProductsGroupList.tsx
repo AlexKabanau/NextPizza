@@ -40,8 +40,26 @@ export const ProductsGroupList: FC<Props> = ({
   return (
     <div className={cn(className)} id={title}>
       <Title text={title} size="lg" className="font-extrabold mb-5" />
-      <div className={cn('grid grid-cols-3 gap-[50px]', listClassName)} ref={intersectionRef}>
-        {items
+      <div className="wrapper" ref={intersectionRef}></div>
+      <div
+        className={cn('grid grid-cols-3 gap-[50px]', listClassName)}
+        // ref={intersectionRef}>
+      >
+        {!items &&
+          [...Array(6)].map((_, index) => (
+            <div key={index} className="w-[200px] h-[250px] bg-gray-200 rounded-md animate-pulse" />
+          ))}
+        {/* {items.map((story) => (
+          <img
+            key={story.id}
+            onClick={() => onClickStory(story)}
+            className="rounded-md cursor-pointer"
+            height={250}
+            width={200}
+            src={story.previewImageUrl}
+          />
+        ))} */}
+        {/* {items
           .filter((product) => product.items.length > 0)
           .map((product) => (
             <ProductCard
@@ -53,7 +71,7 @@ export const ProductsGroupList: FC<Props> = ({
               ingredients={product.ingredients}
               description={product.description}
             />
-          ))}
+          ))} */}
       </div>
     </div>
   );
