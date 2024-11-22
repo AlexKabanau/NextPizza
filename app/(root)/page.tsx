@@ -11,37 +11,37 @@ import { Suspense } from 'react';
 
 export default async function HomePage({ searchParams }: { searchParams: GetSearchParams }) {
   // prisma.category.findMany
-  // const categories = await findPizzas(searchParams);
-  const categories = [
-    {
-      id: 1,
-      name: 'Пиццы', // 1
-    },
-    {
-      id: 2,
-      name: 'Завтраки', // 2
-    },
-    {
-      id: 3,
-      name: 'Закуски', // 3
-    },
-    {
-      id: 4,
-      name: 'Напитки', // 4
-    },
-    {
-      id: 5,
-      name: 'Коктейли', // 5
-    },
-    {
-      id: 6,
-      name: 'Кофе', // 6
-    },
-    {
-      id: 7,
-      name: 'Десерты', // 7
-    },
-  ];
+  const categories = await findPizzas(searchParams);
+  // const categories = [
+  //   {
+  //     id: 1,
+  //     name: 'Пиццы', // 1
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Завтраки', // 2
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Закуски', // 3
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'Напитки', // 4
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'Коктейли', // 5
+  //   },
+  //   {
+  //     id: 6,
+  //     name: 'Кофе', // 6
+  //   },
+  //   {
+  //     id: 7,
+  //     name: 'Десерты', // 7
+  //   },
+  // ];
   // console.log(categories);
 
   return (
@@ -49,14 +49,16 @@ export default async function HomePage({ searchParams }: { searchParams: GetSear
       <Container className="mt-10">
         <Title text="Все пиццы" size="lg" className="font-extrabold" />
       </Container>
-      <TopBar categories={categories} />
-      {/* <TopBar categories={categories.filter((category) => category.product.length > 0)} /> */}
+      {/* <TopBar categories={categories} /> */}
+      <TopBar categories={categories.filter((category) => category.product.length > 0)} />
       <Stories />
       <Container className="mt-10 pb-14">
         <div className="flex gap-[80px]">
           {/* фильтрация */}
           <div className="w-[250px]">
-            <Suspense>{/* <Filters /> */}</Suspense>
+            <Suspense>
+              <Filters />
+            </Suspense>
           </div>
           {/* список товаров */}
           <div className="flex-1">

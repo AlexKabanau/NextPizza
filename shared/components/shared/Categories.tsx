@@ -7,7 +7,7 @@ import { Category } from '@prisma/client';
 import { Cat } from './TopBar';
 
 type Props = {
-  items: Cat[];
+  items: Category[];
   className?: string;
 };
 // const categoriesNames = [

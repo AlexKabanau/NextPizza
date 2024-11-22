@@ -59,7 +59,7 @@ export const ProductsGroupList: FC<Props> = ({
             src={story.previewImageUrl}
           />
         ))} */}
-        {/* {items
+        {items
           .filter((product) => product.items.length > 0)
           .map((product) => (
             <ProductCard
@@ -71,7 +71,7 @@ export const ProductsGroupList: FC<Props> = ({
               ingredients={product.ingredients}
               description={product.description}
             />
-          ))} */}
+          ))}
       </div>
     </div>
   );
