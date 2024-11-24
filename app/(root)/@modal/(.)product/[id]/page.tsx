@@ -1,9 +1,9 @@
 import {
   ChooseProductModal,
-  Container,
-  GroupVariants,
-  PizzaImage,
-  Title,
+  // Container,
+  // GroupVariants,
+  // PizzaImage,
+  // Title,
 } from '@/shared/components/shared';
 import { prisma } from '@/prisma/PrismaClient';
 import { notFound } from 'next/navigation';

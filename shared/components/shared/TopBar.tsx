@@ -9,8 +9,8 @@ export type Cat = {
   name: string;
 };
 type Props = {
-  // categories: Category[];
-  categories: Cat[];
+  categories: Category[];
+  // categories: Cat[];
   className?: string;
 };
 

@@ -55,7 +55,7 @@ export default function CheckoutPage() {
     if (session) {
       fetchUserInfo();
     }
-  }, [session]);
+  }, [form, session]);
 
   const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
     const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;

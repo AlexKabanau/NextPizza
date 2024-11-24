@@ -1,10 +1,12 @@
-import { updateItemQuantity } from '../../../shared/services/cart';
+// import { updateItemQuantity } from '../../../shared/services/cart';
 import { prisma } from '@/prisma/PrismaClient';
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { findOrCreateCart } from '@/shared/lib/findOrCreateCart';
 import { CreateCartItemValues } from '@/shared/services/dto/cart.dto';
 import { updateCartTotalAmount } from '@/shared/lib/updateCartTotalAmount';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   try {

@@ -44,7 +44,7 @@ export const RegisterForm: React.FC<Props> = ({ onClose, onClickLogin }) => {
     }
   };
 
-  console.log(form.formState);
+  // console.log(form.formState);
 
   return (
     <FormProvider {...form}>

@@ -1,5 +1,5 @@
 'use server';
-import { create } from 'zustand';
+// import { create } from 'zustand';
 
 import { CheckoutFormSchemaTypes } from '@/shared/constants';
 import { prisma } from '@/prisma/PrismaClient';
@@ -14,7 +14,7 @@ export async function createOrder(data: CheckoutFormSchemaTypes) {
   try {
     const cookiesStore = cookies();
     const cartToken = cookiesStore.get('cartToken')?.value;
-    console.log('cartToken', cartToken);
+    // console.log('cartToken', cartToken);
 
     if (!cartToken) {
       throw new Error('Cart token not found!');

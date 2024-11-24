@@ -1,6 +1,8 @@
 import { prisma } from '@/prisma/PrismaClient';
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
   const query = req.nextUrl.searchParams.get('query') || '';
   // console.log(req);

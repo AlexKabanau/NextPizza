@@ -9,7 +9,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as PaymentCallbackData;
-    console.log(body);
+    // console.log(body);
 
     const order = await prisma.order.findFirst({
       where: {
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     }
 
     const isSucceeded = body.object.status === 'succeeded';
-    console.log(isSucceeded, 'isSuccceeded');
+    // console.log(isSucceeded, 'isSuccceeded');
     await prisma.order.update({
       where: {
         id: order.id,
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     const items = JSON.parse(order?.items as unknown as string) as CartItemDTO[];
 
     if (isSucceeded) {
-      console.log('!!!here!!!');
+      // console.log('!!!here!!!');
       await sendEmail(
         order.email,
         'NextPizza / Ваш заказ оформлен 👍',

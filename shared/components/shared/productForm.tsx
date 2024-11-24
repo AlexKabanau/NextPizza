@@ -40,7 +40,7 @@ export const ProductForm: FC<Props> = ({ className, product, onSubmit: _onSubmit
         imageUrl={product.imageUrl}
         name={product.name}
         ingredients={product.ingredients}
-        description={product.description}
+        descriptions={product.description}
         items={product.items}
         onSubmit={onSubmitProduct}
         loading={loading}
@@ -51,7 +51,7 @@ export const ProductForm: FC<Props> = ({ className, product, onSubmit: _onSubmit
       <ChooseProductForm
         imageUrl={product.imageUrl}
         name={product.name}
-        description={product.description}
+        descriptions={product.description}
         onSubmit={onSubmitProduct}
         price={firstItem.price}
         loading={loading}

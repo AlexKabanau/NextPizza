@@ -64,10 +64,10 @@ export const authOptions: AuthOptions = {
         }
 
         return {
-          id: String(findUser.id),
+          id: Number(findUser.id),
           email: findUser.email,
           name: findUser.fullName,
-          role: findUser.role,
+          role: findUser.role as UserRole,
         };
       },
     }),
@@ -131,17 +131,25 @@ export const authOptions: AuthOptions = {
       }
     },
     async jwt({ token }) {
-      const findUser = await prisma.user.findFirst({
-        where: {
-          email: token.email,
-        },
-      });
+      // const DEFAULT_ROLE = 'USER';
+      if (token.email) {
+        const findUser = await prisma.user.findFirst({
+          where: {
+            email: token.email,
+          },
+        });
 
-      if (findUser) {
-        token.id = String(findUser.id);
-        token.email = findUser.email;
-        token.fullName = findUser.fullName;
-        token.role = findUser.role;
+        if (findUser) {
+          token.id = String(findUser.id);
+          token.email = findUser.email?.toString() ?? '';
+          token.fullName = findUser.fullName;
+          if (findUser.role) {
+            token.role = findUser.role as UserRole;
+          }
+        } else {
+          // Обработка случая, когда email отсутствует
+          console.error('Email is null or undefined');
+        }
       }
 
       return token;

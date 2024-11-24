@@ -23,7 +23,7 @@ export const ProfileForm: FC<Props> = ({ data }) => {
       fullName: data.fullName,
       email: data.email,
       password: '',
-      confirmPasswor: '',
+      confirmPassword: '', // <--- fixed!
     },
   });
 
