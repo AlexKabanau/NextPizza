@@ -7,7 +7,7 @@ import {
   Stories,
 } from '@/shared/components/shared';
 import { findPizzas, GetSearchParams } from '@/shared/lib/findPizzas';
-import { Suspense } from 'react';
+// import { Suspense } from 'react';
 
 export default async function HomePage({ searchParams }: { searchParams: GetSearchParams }) {
   // prisma.category.findMany
@@ -56,9 +56,9 @@ export default async function HomePage({ searchParams }: { searchParams: GetSear
         <div className="flex gap-[80px]">
           {/* фильтрация */}
           <div className="w-[250px]">
-            <Suspense>
-              <Filters />
-            </Suspense>
+            {/* <Suspense> */}
+            <Filters />
+            {/* </Suspense> */}
           </div>
           {/* список товаров */}
           <div className="flex-1">
