@@ -156,11 +156,11 @@ export const authOptions: AuthOptions = {
     },
     session({ session, token }) {
       if (session?.user) {
-        console.log('session', session);
+        // console.log('session', session);
         session.user.id = token.id;
         session.user.role = token.role;
       }
-      console.log('session + id , role', session);
+      // console.log('session + id , role', session);
 
       return session;
     },
